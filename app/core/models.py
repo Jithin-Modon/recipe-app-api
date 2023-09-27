@@ -9,6 +9,8 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
+from datetime import datetime
+
 
 class UserManager(BaseUserManager):
     """Manager for users."""
@@ -38,8 +40,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     """User in the system."""
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=True)
+    password = models.CharField(max_length=100)
+    nationality_id = models.IntegerField()
+    persona_id = models.IntegerField()
     is_staff = models.BooleanField(default=False)
+    ip_address = models.CharField(max_length=100)
+    last_login = models.DateTimeField()
+    previous_login = models.DateTimeField()
+    is_active = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(default=datetime.now())
+    updated_at = models.DateTimeField(default=datetime.now())
 
     objects = UserManager()
 
